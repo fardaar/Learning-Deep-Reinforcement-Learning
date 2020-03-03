@@ -11,6 +11,7 @@ def create_q_table(action_size, state_size):
     #     q-table: an empty q-table initialized with zeros
     # Implements:
     #     creates the agent's q-table
+
     return np.zeros((state_size, action_size))
 
 
