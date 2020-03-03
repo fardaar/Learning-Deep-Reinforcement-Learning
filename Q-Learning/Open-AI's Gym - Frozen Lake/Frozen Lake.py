@@ -1,6 +1,7 @@
 import numpy as np
 import gym
 import random
+import model
 
 
 def create_q_table(action_size, state_size):
@@ -25,3 +26,6 @@ exploration_parameters = {'epsilon': 1.0,  # exploration rate
                           'max_epsilon': 1.0,  # maximum exploration rate
                           'min_epsilon': 0.01,  # minimum exploration rate
                           'decay_rate': 0.005}  # the rate at which epsilon is to decay at each iteration
+
+q_table = model.train(env, hyper_parameters, exploration_parameters, q_table)
+model.test(q_table, env, hyper_parameters, 5)
