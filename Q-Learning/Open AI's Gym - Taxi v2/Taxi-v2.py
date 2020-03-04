@@ -22,4 +22,5 @@ exploration_parameters = {'epsilon': 1.0,
                           'decay_rate': 0.01}
 
 q_table = model.train(env, hyper_parameters, exploration_parameters, q_table)
+
 model.test(q_table, env, hyper_parameters, 5)
