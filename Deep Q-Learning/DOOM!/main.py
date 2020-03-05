@@ -75,3 +75,25 @@ def stack_frames(stacked_frames, state, is_new_episode):
 game, possible_actions = create_environment()
 stack_size = 4
 stacked_frames = deque([np.zeros((84, 84), dtype=np.int) for i in range(stack_size)], maxlen=4)
+
+model_hyperparameters = {'state_size': [84, 84, 4],
+                         'action_size': game.get_available_buttons_size(),
+                         'learning_rate': 0.0002}
+
+training_hyperparameters = {'total_episodes': 500,
+                            'max_steps': 100,
+                            'batch_size': 64}
+
+exploration_hyperparameters = {'explore_start': 1.0,
+                               'explore_stop': 0.01,
+                               'decay_rate': 0.0001}
+q_learning_hyperparameters = {'gamma': 0.95}
+
+memory_hyperparameters = {'pretrain_length': training_hyperparameters['batch_size'],
+                          'memory_size': 1000000}
+
+### MODIFY THIS TO FALSE IF YOU JUST WANT TO SEE THE TRAINED AGENT
+training = True
+
+## TURN THIS TO TRUE IF YOU WANT TO RENDER THE ENVIRONMENT
+episode_render = False
