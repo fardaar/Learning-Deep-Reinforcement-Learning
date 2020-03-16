@@ -4,7 +4,7 @@ import numpy as np
 
 def preprocess_frame(frame):
     # Arguments:
-        # frame: a single frame of the game outputted buy VizDoom
+        # frame: a single frame of the game outputted by VizDoom
     # Returns:
         # preprocessed_frame: a grayscale, 84*84 matrix
     # Implements:
