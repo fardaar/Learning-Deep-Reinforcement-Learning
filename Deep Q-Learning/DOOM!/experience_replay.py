@@ -23,7 +23,7 @@ class Memory:
 
     def sample(self):
         # To return a random sample from the buffer
-        rand_index = random.randint(len(self.buffer['state']))
+        rand_index = random.randint(0, len(self.buffer['state']))
         sample = (
             self.buffer['state'][rand_index], self.buffer['action'][rand_index], self.buffer['reward'][rand_index])
         return sample
