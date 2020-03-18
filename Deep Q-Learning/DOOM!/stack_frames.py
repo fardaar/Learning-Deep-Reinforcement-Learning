@@ -18,7 +18,6 @@ def stack_frames(stacked_frames, state, is_new_episode, stack_size=4):
     frame = preprocess_frame(state)
     # if we're in a new episode create a new deque and stack four of the first frames in it. if not just add it to the stack
     if is_new_episode:
-        stacked_frames = deque([np.zeros((84, 84), dtype=np.int) for i in range(stack_size)], maxlen=stack_size)
         for i in range(stack_size):
             stacked_frames.append(frame)
 
