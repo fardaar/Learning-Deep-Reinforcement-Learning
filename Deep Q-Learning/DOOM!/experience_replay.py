@@ -7,26 +7,34 @@ import copy
 
 
 class Memory:
-    # This class creates our experience replay buffer. each experience is defined as a combination of state, action and reward
+    # This class creates our experience replay buffer. each experience is defined as a combination of state, action, reward, next state and of we're finished or not
 
     def __init__(self):
         # Define buffer
         self.buffer = {'state': [],
                        'action': [],
-                       'reward': []}
+                       'reward': [],
+                       'next_state': [],
+                       'done': []}
 
-    def add(self, state, action, reward):
+    def add(self, state, action, reward, next_state, done):
         # To add new experiences to buffer
         self.buffer['state'].append(copy.deepcopy(state))
         self.buffer['action'].append(action)
         self.buffer['reward'].append(reward)
+        self.buffer['next_state'].append(next_state)
+        self.buffer['done'].append(done)
 
-    def sample(self):
-        # To return a random sample from the buffer
-        rand_index = random.randint(0, len(self.buffer['state']))
-        sample = (
-            self.buffer['state'][rand_index], self.buffer['action'][rand_index], self.buffer['reward'][rand_index])
-        return sample
+    def sample(self, batch_size):
+        # To return a random batch from the buffer
+        rand_indexes = np.random.randint(0, len(self.buffer['state']), batch_size)
+        states = np.asarray([self.buffer['state'][i] for i in rand_indexes])
+        actions = np.asarray([self.buffer['action'][i] for i in rand_indexes])
+        rewards = np.asarray([self.buffer['reward'][i] for i in rand_indexes])
+        next_states = np.asarray([self.buffer['next_state'][i] for i in rand_indexes])
+        dones = np.asarray([self.buffer['done'][i] for i in rand_indexes])
+        batch = (states, actions, rewards, next_states, dones)
+        return batch
 
 
 def create_and_fill_memory(stack_size=4, pretrain_length=64):
@@ -55,6 +63,8 @@ def create_and_fill_memory(stack_size=4, pretrain_length=64):
             stacked_frames = stack_frames.stack_frames(stacked_frames, state.screen_buffer, False)
             action = random.choice(possible_actions)
             reward = game.make_action(action)
-            memory.add(np.asarray(stacked_frames).T, action, reward)
+            done = game.is_episode_finished()
+            next_stacked_frames = stack_frames.stack_frames(stacked_frames, state.screen_buffer, False)
+            memory.add(np.asarray(stacked_frames).T, action, reward, np.asarray(next_stacked_frames).T, done)
 
     return memory
