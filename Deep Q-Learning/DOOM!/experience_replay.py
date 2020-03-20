@@ -16,6 +16,7 @@ class Memory:
                        'reward': [],
                        'next_state': [],
                        'done': []}
+        self.buffer_size = 0
 
     def add(self, state, action, reward, next_state, done):
         # To add new experiences to buffer
@@ -34,6 +35,7 @@ class Memory:
         next_states = np.asarray([self.buffer['next_state'][i] for i in rand_indexes])
         dones = np.asarray([self.buffer['done'][i] for i in rand_indexes])
         batch = (states, actions, rewards, next_states, dones)
+        self.buffer_size += 1
         return batch
 
 
