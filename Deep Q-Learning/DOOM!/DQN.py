@@ -76,7 +76,6 @@ class DQN:
         gradients = tape.gradient(loss, variables)
         self.optimizer.apply_gradients(zip(gradients, variables))
 
-
     def get_action(self, states, epsilon):
         # Arguments:
         #   states: states which we want to predict corresponding actions for
