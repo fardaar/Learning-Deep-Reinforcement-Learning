@@ -30,7 +30,7 @@ class Memory:
         rand_indexes = np.random.randint(0, len(self.buffer['state']), batch_size)
         states = np.asarray([self.buffer['state'][i] for i in rand_indexes])
         actions = np.asarray([self.buffer['action'][i] for i in rand_indexes])
-        rewards = np.asarray([self.buffer['reward'][i] for i in rand_indexes])
+        rewards = np.asarray([self.buffer['reward'][i] for i in rand_indexes], dtype=np.float32)
         next_states = np.asarray([self.buffer['next_state'][i] for i in rand_indexes])
         dones = np.asarray([self.buffer['done'][i] for i in rand_indexes])
         batch = (states, actions, rewards, next_states, dones)
