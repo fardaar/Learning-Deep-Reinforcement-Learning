@@ -7,7 +7,7 @@ import copy
 
 
 class Memory:
-    # This class creates our experience replay buffer. each experience is defined as a combination of state, action, reward, next state and of we're finished or not
+    # This class creates our experience replay buffer. each experience is defined as a combination of state, action, reward, next state and if we're finished or not
 
     def __init__(self):
         # Define buffer
