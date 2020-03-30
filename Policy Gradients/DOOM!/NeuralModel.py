@@ -35,7 +35,7 @@ class NeuralModel(tf.keras.Model):
                                                       activation='relu',
                                                       kernel_initializer=tf.keras.initializers.he_normal())
         self.logits = tf.keras.layers.Dense(units=output_shape,
-                                            activation=None,
+                                            activation='softmax',
                                             kernel_initializer=tf.keras.initializers.he_normal())
 
     @tf.function
@@ -51,9 +51,8 @@ class NeuralModel(tf.keras.Model):
         out = self.conv_layer3_batchnorm(out)
         out = self.flatten_layer(out)
         out = self.fully_connected1(out)
-        out = self.logits(out)
-        out = tf.nn.softmax(out)
-        return out
+        action_distribution = self.logits(out)
+        return action_distribution
 
 
 model = NeuralModel([84, 84, 4], 3)
