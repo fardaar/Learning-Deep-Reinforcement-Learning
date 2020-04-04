@@ -46,7 +46,7 @@ class NeuralModel(tf.keras.Model):
                                             kernel_initializer=tf.keras.initializers.he_normal())
 
     @tf.function
-    def call(self, inputs):
+    def call(self, inputs, in_training):
         out = self.input_layer(inputs)
         out = self.conv_layer1(out)
         out = self.conv_layer1_batchnorm(out)
@@ -60,7 +60,10 @@ class NeuralModel(tf.keras.Model):
         out = self.fully_connected1(out)
         logits = self.logits(out)
         action_distribution = tf.nn.softmax(logits)
-        return action_distribution
+        if in_training:
+            return logits
+        else:
+            return action_distribution
 
 
 # model = NeuralModel([84, 84, 4], 3)
