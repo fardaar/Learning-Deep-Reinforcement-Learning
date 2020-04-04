@@ -42,7 +42,7 @@ class DQN:
         #   A single forward pass through agent's network with the given inputs
         return self.model(inputs)
 
-    @tf.function
+
     def train(self):
         # Arguments:
         #   -
@@ -154,7 +154,7 @@ left = [1, 0, 0]
 right = [0, 1, 0]
 shoot = [0, 0, 1]
 possible_actions = [left, right, shoot]
-agent = DQN(state_shape=[84, 84, 4], num_actions=3, gamma=0.01, batch_size=10, learning_rate=0.001, pretrain_length=64,
+agent = DQN(state_shape=[84, 84, 4], num_actions=3, gamma=0.01, batch_size=10, learning_rate=0.001, pretrain_length=5,
             stack_size=4, max_buffer_size=10000, possible_actions=possible_actions)
 
 for i in range(10000):
