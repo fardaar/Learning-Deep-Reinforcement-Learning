@@ -1,8 +1,6 @@
 import tensorflow as tf
 import numpy as np
 import NeuralModel
-import environment
-import stack_frames
 from collections import deque
 import play_episode
 
